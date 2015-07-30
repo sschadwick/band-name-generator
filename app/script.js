@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+$(function() {
 
   // BUTTON TO GET REQUEST NEW BAND NAME
   $('#name').click(function() {
@@ -27,8 +27,9 @@ $(document).ready(function() {
 
     $.get('favorite', function(response) { //get from server
       for (var i in response) {
-        $('#favoriteList').append('<li>' + response[i] + '</li>');
+
         //add a new li for each item in Favorites
+        $('#favoriteList').append('<li>' + response[i] + '</li>');
       }
     });
   });
@@ -41,8 +42,9 @@ $(document).ready(function() {
     var favorite;
 
     if (randomAdjective) {
-    favorite = randomAdjective + ' ' + randomVerb + ' ' + randomNoun;
+      favorite = randomAdjective + ' ' + randomVerb + ' ' + randomNoun;
     }
+
     var favoritePost;
 
     if (favorite) {
