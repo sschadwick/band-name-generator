@@ -1,7 +1,8 @@
-'use strict'
+'use strict';
 
 $(document).ready(function() {
 
+  // BUTTON TO GET REQUEST NEW BAND NAME
   $('#name').click(function() {
     $.get('adjective', function(response) {
       var adjective = response.word;
@@ -17,6 +18,42 @@ $(document).ready(function() {
       var noun = response.word;
       $('#noun').text(noun);
     });
+  });
+
+  // BUTTON TO GET FAVORITES LIST
+  $('#seeFavorites').click(function() {
+    $('#favoriteSoFar').text('Favorites So Far:');
+    $('#favoriteList').empty(); //refresh with GET request
+
+    $.get('favorite', function(response) { //get from server
+      for (var i in response) {
+        $('#favoriteList').append('<li>' + response[i] + '</li>');
+        //add a new li for each item in Favorites
+      }
+    });
+  });
+
+  // BUTTON TO ADD NEW FAVORITE
+  $('#submitFavorites').click(function() { //add favorite button
+    var randomAdjective = $('#adjective').text();
+    var randomVerb = $('#verb').text();
+    var randomNoun = $('#noun').text();
+    var favorite;
+
+    if (randomAdjective) {
+    favorite = randomAdjective + ' ' + randomVerb + ' ' + randomNoun;
+    }
+    var favoritePost;
+
+    if (favorite) {
+      favoritePost = {word: favorite}; //JSONify
+      $.post('favorite', favoritePost, function(response) {
+        var favoriteRes = response.message;
+        $('#error').text(favoriteRes); // NOT WORKING
+      });
+    } else {
+      $('#error').text('You haven\'t generated a band name yet!');
+    }// default response if no current band name present
   });
 
   //make an event handler that, when the button is clicked,

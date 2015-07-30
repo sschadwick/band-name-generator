@@ -8,6 +8,8 @@ var Verb = require('./lib/verb.js');
 var Noun = require('./lib/noun.js');
 var getRandomWord = require('./lib/getRandomWord.js');
 var postRandomWord = require('./lib/postRandomWord.js');
+var Favorites = require('./lib/favorites.js');
+var addFavorite = require('./lib/addFavorite.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -23,6 +25,14 @@ var noun = new Noun();
 
 app.get('/', function(req, res) {
   res.sendFile('index.html');
+});
+
+app.get('/favorite', function(req, res) {
+  res.json(Favorites); //take preset favs from Favorites.js
+});
+
+app.post('/favorite', function(req, res) {
+  res.json(addFavorite(req.body.word, Favorites));
 });
 
 app.get('/adjective', function(req, res) {
