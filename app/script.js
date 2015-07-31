@@ -1,7 +1,6 @@
 'use strict';
 
 $(function() {
-
   // BUTTON TO GET REQUEST NEW BAND NAME
   $('#name').click(function() {
     $.get('adjective', function(response) {
@@ -20,38 +19,37 @@ $(function() {
     });
   });
 
-  // BUTTON TO GET FAVORITES LIST
-  $('#seeFavorites').click(function() {
-    $('#favoriteSoFar').text('Favorites So Far:');
+  var updateFavorites = function() {
     $('#favoriteList').empty(); //refresh with GET request
-
     $.get('favorite', function(response) { //get from server
       for (var i in response) {
-
         //add a new li for each item in Favorites
         $('#favoriteList').append('<li>' + response[i] + '</li>');
       }
     });
-  });
+  };
 
-  // BUTTON TO ADD NEW FAVORITE
+  updateFavorites(); // Initialize the list
+
+  // BUTTON TO POST NEW FAVORITE
   $('#submitFavorites').click(function() { //add favorite button
     var randomAdjective = $('#adjective').text();
     var randomVerb = $('#verb').text();
     var randomNoun = $('#noun').text();
     var favorite;
 
+    // if randomAdjective has been generated, find complete random word
     if (randomAdjective) {
       favorite = randomAdjective + ' ' + randomVerb + ' ' + randomNoun;
     }
 
-    var favoritePost;
-
+    // if a random word has been generated, send that word
     if (favorite) {
-      favoritePost = {word: favorite}; //JSONify
+      var favoritePost = {word: favorite}; //JSONify
       $.post('favorite', favoritePost, function(response) {
         var favoriteRes = response.message;
-        $('#error').text(favoriteRes); // NOT WORKING
+        $('#error').text(favoriteRes); //show message from sever
+        updateFavorites();
       });
     } else {
       $('#error').text('You haven\'t generated a band name yet!');
