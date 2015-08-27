@@ -19,6 +19,7 @@ $(function() {
     });
   });
 
+  //function to update the favorites list
   var updateFavorites = function() {
     $('#favoriteList').empty(); //refresh with GET request
     $.get('favorite', function(response) { //get from server
@@ -48,7 +49,7 @@ $(function() {
       var favoritePost = {word: favorite}; //JSONify
       $.post('favorite', favoritePost, function(response) {
         var favoriteRes = response.message;
-        $('#error').text(favoriteRes); //show message from sever
+        $('#error').text(favoriteRes); //show message from server
         updateFavorites();
       });
     } else {
