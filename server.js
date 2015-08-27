@@ -5,13 +5,13 @@ var express = require('express');
 var bodyparser = require('body-parser');
 
 //load band name modules
-var Adjective = require('./lib/adjective.js');
-var Verb = require('./lib/verb.js');
-var Noun = require('./lib/noun.js');
-var getRandomWord = require('./lib/getRandomWord.js');
-var postRandomWord = require('./lib/postRandomWord.js');
-var Favorites = require('./lib/favorites.js');
-var addFavorite = require('./lib/addFavorite.js');
+var Adjective = require('./lib/adjective');
+var Verb = require('./lib/verb');
+var Noun = require('./lib/noun');
+var getRandomWord = require('./lib/getRandomWord');
+var postRandomWord = require('./lib/postRandomWord');
+var Favorites = require('./lib/favorites');
+var addFavorite = require('./lib/addFavorite');
 
 //create server on var PORT or port 3000
 var app = express();
